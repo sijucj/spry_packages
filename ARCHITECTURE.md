@@ -1,10 +1,10 @@
-# Spry SQLPage DALEC Architecture
+# Spry DALEC Architecture
 
-This document describes the architecture and design decisions for the Spry SQLPage DALEC packaging project.
+This document describes the architecture and design decisions for the Spry DALEC packaging project.
 
 ## Overview
 
-This project uses [DALEC](https://github.com/project-dalec/dalec) to build cross-platform packages for the Spry SQLPage CLI tool. DALEC is a Docker Buildkit frontend that translates declarative YAML specifications into build instructions for multiple Linux distributions and Windows.
+This project uses [DALEC](https://github.com/project-dalec/dalec) to build cross-platform packages for the Spry SQLPage and Spry Runbook CLI tools. DALEC is a Docker Buildkit frontend that translates declarative YAML specifications into build instructions for multiple Linux distributions and Windows.
 
 ## Project Structure
 
@@ -17,7 +17,8 @@ packages/
 ├── scripts/
 │   └── release.sh             # Release automation script
 ├── dalec-spry-sqlpage.yaml    # DALEC specification file
-├── spry_sqlpage.ts            # Main Spry SQLPage TypeScript file
+├── spry_sqlpage.ts            # Spry SQLPage TypeScript file
+├── spry_runbook.ts            # Spry Runbook TypeScript file
 ├── import_map.json            # Deno import map
 ├── Makefile                   # Build automation
 ├── docker-compose.yml         # Docker Compose for local builds
@@ -26,7 +27,6 @@ packages/
 ├── CONTRIBUTING.md            # Contribution guidelines
 ├── ARCHITECTURE.md            # This file
 └── LICENSE                    # MIT License
-
 ```
 
 ## Build Process
@@ -36,15 +36,15 @@ packages/
 The `dalec-spry-sqlpage.yaml` file defines:
 
 - **Package metadata**: name, version, description, license
-- **Sources**: 
+- **Sources**:
   - Deno binary (downloaded from GitHub releases)
   - Import map (from Spry repository)
-  - Main TypeScript file (inline)
-- **Build steps**: 
+  - TypeScript files (spry_sqlpage.ts, spry_runbook.ts)
+- **Build steps**:
   - Extract Deno
-  - Compile TypeScript to standalone binary
-  - Package the binary
-- **Targets**: Ubuntu, Debian, Rocky Linux, Alma Linux, Windows
+  - Compile TypeScript to standalone binaries
+  - Package the binaries
+- **Targets**: Ubuntu, Debian, Windows
 
 ### 2. Build Targets
 
@@ -52,12 +52,8 @@ The `dalec-spry-sqlpage.yaml` file defines:
 - **jammy**: Ubuntu 22.04 LTS
 - **bookworm**: Debian 12
 
-#### RPM Packages (RHEL-based)
-- **rockylinux9**: Rocky Linux 9
-- **almalinux9**: Alma Linux 9
-
 #### Windows
-- **windowscross**: Cross-compiled Windows binary
+- **Cross-compiled**: Windows binaries built from Linux runners
 
 #### macOS
 - Built separately using native Deno compilation on macOS runners
@@ -88,11 +84,10 @@ The CI/CD pipeline consists of:
 
 ### Package Structure
 
-The compiled binary is installed to `/usr/local/bin/spry-sqlpage` and includes:
-- Deno runtime
-- All TypeScript code
-- Import map dependencies
-- Spry SQLPage CLI
+The compiled binaries are installed to `/usr/local/bin/` and include:
+
+- **spry-sqlpage**: Spry SQLPage CLI with Deno runtime and dependencies
+- **spry-runbook**: Spry Runbook CLI with Deno runtime and dependencies
 
 ## Build Flow
 

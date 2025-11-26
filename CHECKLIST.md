@@ -1,12 +1,13 @@
 # Project Completion Checklist
 
-This checklist verifies that all components of the Spry SQLPage DALEC project are complete.
+This checklist verifies that all components of the Spry packages DALEC project are complete.
 
 ## ✅ Core Files
 
 - [x] `dalec-spry-sqlpage.yaml` - DALEC specification
-- [x] `spry_sqlpage.ts` - Main TypeScript file
-- [x] `import_map.json` - Deno import map
+- [x] `spry_sqlpage.ts` - Main TypeScript file for spry-sqlpage
+- [x] `spry_runbook.ts` - Main TypeScript file for spry-runbook
+- [x] `import_map.json` - Deno import map (downloaded from Spry repo)
 
 ## ✅ Build Automation
 
@@ -43,8 +44,6 @@ This checklist verifies that all components of the Spry SQLPage DALEC project ar
 
 - [x] Ubuntu 22.04 (Jammy) - DEB
 - [x] Debian 12 (Bookworm) - DEB
-- [x] Rocky Linux 9 - RPM
-- [x] Alma Linux 9 - RPM
 - [x] Windows - Cross-compilation
 - [x] macOS - Native compilation
 
@@ -53,12 +52,10 @@ This checklist verifies that all components of the Spry SQLPage DALEC project ar
 - [x] `make build-all` - Build all packages
 - [x] `make build-jammy` - Ubuntu Jammy
 - [x] `make build-bookworm` - Debian Bookworm
-- [x] `make build-rocky` - Rocky Linux 9
-- [x] `make build-alma` - Alma Linux 9
 - [x] `make build-windows` - Windows
-- [x] `make compile-local` - Local Deno compilation
+- [x] `make compile-local` - Local Deno compilation (both spry-sqlpage and spry-runbook)
 - [x] `make clean` - Clean artifacts
-- [x] `make test` - Test binary
+- [x] `make test` - Test binaries
 - [x] `make install` - Install locally
 - [x] `make uninstall` - Uninstall
 
@@ -93,7 +90,7 @@ This checklist verifies that all components of the Spry SQLPage DALEC project ar
 ### Future Enhancements
 
 - [ ] Add package signing (GPG)
-- [ ] Create Homebrew formula
+- [x] Create Homebrew formulas (spry-sqlpage.rb, spry-runbook.rb)
 - [ ] Create Chocolatey package
 - [ ] Add ARM64 support
 - [ ] Create Docker images
@@ -141,7 +138,7 @@ All core functionality has been implemented and documented. The project is ready
 
 - The project follows the structure of https://github.com/project-dalec/dalec
 - Uses the same approach as https://github.com/surveilr/packages
-- Compiles using: `deno run -A --import-map=import_map.json spry_sqlpage.ts`
+- Compiles using: `deno compile --allow-all --import-map=import_map.json spry_sqlpage.ts`
 - All documentation is comprehensive and user-friendly
 - Build process is automated and reproducible
 

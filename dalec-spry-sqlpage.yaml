@@ -1,5 +1,5 @@
 # syntax=ghcr.io/azure/dalec/frontend:latest
-# DALEC config for packaging existing spry-sqlpage binary
+# DALEC config for packaging spry-sqlpage and spry-runbook binaries
 
 name: spry-sqlpage
 version: 0.1.0
@@ -7,14 +7,14 @@ revision: 1
 packager: Spry Team
 vendor: Spry
 license: MIT
-description: Spry SQLPage CLI - A declarative web application framework
+description: Spry CLI tools - SQLPage web framework and Runbook execution
 website: https://github.com/programmablemd/spry
 
 sources:
   src:
     context: {}
 
-# No compilation - just package existing binary from build context
+# No compilation - just package existing binaries from build context
 build:
   env:
     # Disable stripping to preserve Deno binary metadata
@@ -25,22 +25,26 @@ build:
         # Debug: Check what files are available
         pwd
         ls -la
-        find . -name "*spry-sqlpage*" -type f
+        find . -name "*spry-*" -type f
 
-        # Binary provided by workflow
-        # The source name "src" becomes a directory, so binary is at src/src/spry-sqlpage
+        # Binaries provided by workflow
+        # The source name "src" becomes a directory, so binaries are at src/src/
         ls -la src/src/spry-sqlpage
+        ls -la src/src/spry-runbook
         # Use cp -p to preserve permissions and attributes
         cp -p src/src/spry-sqlpage ./spry-sqlpage
-        chmod +x spry-sqlpage
+        cp -p src/src/spry-runbook ./spry-runbook
+        chmod +x spry-sqlpage spry-runbook
 
-        # Verify the binary works before packaging
+        # Verify the binaries work before packaging
         file ./spry-sqlpage
-        ls -lh ./spry-sqlpage
+        file ./spry-runbook
+        ls -lh ./spry-sqlpage ./spry-runbook
 
 artifacts:
   binaries:
     spry-sqlpage:
+    spry-runbook:
 
 tests:
   - name: Check spry-sqlpage binary exists
@@ -50,6 +54,14 @@ tests:
   - name: Verify spry-sqlpage is executable
     steps:
       - command: test -x /usr/bin/spry-sqlpage
+
+  - name: Check spry-runbook binary exists
+    steps:
+      - command: test -f /usr/bin/spry-runbook
+
+  - name: Verify spry-runbook is executable
+    steps:
+      - command: test -x /usr/bin/spry-runbook
 
 targets:
   jammy:          # Ubuntu 22.04 DEB

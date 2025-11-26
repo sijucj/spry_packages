@@ -8,7 +8,10 @@ output/
 # Compiled binaries
 spry-sqlpage
 spry-sqlpage.exe
+spry-runbook
+spry-runbook.exe
 spry-sqlpage-*
+spry-runbook-*
 
 # Deno
 .deno/

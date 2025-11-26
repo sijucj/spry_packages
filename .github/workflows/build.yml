@@ -60,12 +60,26 @@ jobs:
             --output=spry-sqlpage \
             spry_sqlpage.ts
 
-          # Place binary where DALEC expects it
+          echo "✅ spry-sqlpage binary compiled."
+
+      - name: Compile spry_runbook binary
+        run: |
+          deno compile \
+            --allow-all \
+            --import-map=import_map.json \
+            --output=spry-runbook \
+            spry_runbook.ts
+
+          echo "✅ spry-runbook binary compiled."
+
+      - name: Prepare binaries for DALEC
+        run: |
           mkdir -p src
           cp spry-sqlpage src/spry-sqlpage
-          chmod +x src/spry-sqlpage
+          cp spry-runbook src/spry-runbook
+          chmod +x src/spry-sqlpage src/spry-runbook
 
-          echo "✅ spry-sqlpage binary compiled and prepared."
+          echo "✅ Binaries prepared in src/ directory."
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -118,7 +132,6 @@ jobs:
 
       - name: Compile spry_sqlpage binary for Windows
         run: |
-          # Compile directly for Windows x86_64 target
           deno compile \
             --allow-all \
             --import-map=import_map.json \
@@ -127,19 +140,35 @@ jobs:
             spry_sqlpage.ts
 
           echo "✅ spry-sqlpage.exe binary compiled for Windows."
-          ls -lh spry-sqlpage.exe
-          file spry-sqlpage.exe || echo "file command not available"
 
-      - name: Package Windows binary
+      - name: Compile spry_runbook binary for Windows
+        run: |
+          deno compile \
+            --allow-all \
+            --import-map=import_map.json \
+            --target x86_64-pc-windows-msvc \
+            --output=spry-runbook.exe \
+            spry_runbook.ts
+
+          echo "✅ spry-runbook.exe binary compiled for Windows."
+
+      - name: Package Windows binaries
         run: |
           mkdir -p output
           zip output/spry-sqlpage-windows.zip spry-sqlpage.exe
+          zip output/spry-runbook-windows.zip spry-runbook.exe
 
-      - name: Upload Windows artifact
+      - name: Upload Windows spry-sqlpage artifact
         uses: actions/upload-artifact@v4
         with:
           name: spry-sqlpage-windows
           path: output/spry-sqlpage-windows.zip
+
+      - name: Upload Windows spry-runbook artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spry-runbook-windows
+          path: output/spry-runbook-windows.zip
 
   build-macos:
     name: Build macOS binaries
@@ -170,19 +199,36 @@ jobs:
 
           echo "✅ spry-sqlpage macOS binary compiled."
 
-      - name: Create macOS archive
+      - name: Compile spry_runbook for macOS
+        run: |
+          deno compile \
+            --allow-all \
+            --import-map=import_map.json \
+            --output=spry-runbook-macos \
+            spry_runbook.ts
+
+          echo "✅ spry-runbook macOS binary compiled."
+
+      - name: Create macOS archives
         run: |
           mkdir -p output
           tar -czf output/spry-sqlpage-macos.tar.gz spry-sqlpage-macos
+          tar -czf output/spry-runbook-macos.tar.gz spry-runbook-macos
 
-          echo "📦 macOS archive created:"
+          echo "📦 macOS archives created:"
           ls -lh output/
 
-      - name: Upload macOS artifact
+      - name: Upload macOS spry-sqlpage artifact
         uses: actions/upload-artifact@v4
         with:
           name: spry-sqlpage-macos
-          path: ./output/*.tar.gz
+          path: ./output/spry-sqlpage-macos.tar.gz
+
+      - name: Upload macOS spry-runbook artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spry-runbook-macos
+          path: ./output/spry-runbook-macos.tar.gz
 
   release:
     name: Create Release

@@ -1,10 +1,10 @@
-# Spry SQLPage DALEC Packages
+# Spry DALEC Packages
 
-This repository contains DALEC-generated packages for `spry-sqlpage`, providing native installation options across multiple platforms.
+This repository contains DALEC-generated packages for `spry-sqlpage` and `spry-runbook`, providing native installation options across multiple platforms.
 
 ## About
 
-Spry SQLPage is a declarative web application framework built on Deno. This repository uses [DALEC](https://github.com/project-dalec/dalec) to build secure, cross-platform packages.
+Spry SQLPage is a declarative web application framework built on Deno. Spry Runbook is a runbook execution tool. This repository uses [DALEC](https://github.com/project-dalec/dalec) to build secure, cross-platform packages for both tools.
 
 ## Installation
 
@@ -49,29 +49,33 @@ sudo mv spry-sqlpage-macos /usr/local/bin/spry-sqlpage
 #### Windows
 
 ```powershell
-# Download the Windows package
+# Download the Windows packages
 # https://github.com/programmablemd/packages/releases/download/v0.1.0/spry-sqlpage-windows.zip
+# https://github.com/programmablemd/packages/releases/download/v0.1.0/spry-runbook-windows.zip
 
-# Extract the zip file and run:
+# Extract the zip files and run:
 .\spry-sqlpage.exe --help
+.\spry-runbook.exe --help
 ```
 
 ### 🔗 Direct Download
 
 Visit our [GitHub Releases](https://github.com/programmablemd/packages/releases) page to download pre-built binaries for your operating system:
 
-- **Windows**: `spry-sqlpage-windows.zip`
-- **macOS**: `spry-sqlpage-macos.tar.gz`
+- **Windows**: `spry-sqlpage-windows.zip`, `spry-runbook-windows.zip`
+- **macOS**: `spry-sqlpage-macos.tar.gz`, `spry-runbook-macos.tar.gz`
 - **Linux DEB**: `spry-sqlpage_jammy.deb`, `spry-sqlpage_bookworm.deb`
-- **Linux RPM**: `spry-sqlpage_rockylinux9.rpm`, `spry-sqlpage_almalinux9.rpm`
 
 ## Verification
 
-After installation, verify that `spry-sqlpage` is working correctly:
+After installation, verify that `spry-sqlpage` and `spry-runbook` are working correctly:
 
 ```bash
 spry-sqlpage --version
 spry-sqlpage --help
+
+spry-runbook --version
+spry-runbook --help
 ```
 
 ## Building from Source
@@ -91,13 +95,6 @@ docker buildx build \
   -f dalec-spry-sqlpage.yaml \
   .
 
-# Build RPM package for Rocky Linux 9
-docker buildx build \
-  --target rockylinux9 \
-  --output type=local,dest=./output \
-  -f dalec-spry-sqlpage.yaml \
-  .
-
 # Build Windows package (cross-compilation)
 docker buildx build \
   --target windowscross \
@@ -112,12 +109,19 @@ docker buildx build \
 # Download import_map.json
 curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
 
-# Compile for your platform
+# Compile spry-sqlpage
 deno compile \
   --allow-all \
   --import-map=import_map.json \
   --output=spry-sqlpage \
   spry_sqlpage.ts
+
+# Compile spry-runbook
+deno compile \
+  --allow-all \
+  --import-map=import_map.json \
+  --output=spry-runbook \
+  spry_runbook.ts
 ```
 
 ## Supported Platforms

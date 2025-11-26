@@ -1,6 +1,6 @@
-# Building Spry SQLPage Packages
+# Building Spry Packages
 
-This document describes how to build spry-sqlpage packages for various operating systems using DALEC.
+This document describes how to build spry-sqlpage and spry-runbook packages for various operating systems using DALEC.
 
 ## Prerequisites
 
@@ -31,11 +31,9 @@ export DOCKER_BUILDKIT=1
 make build-all
 ```
 
-This will build packages for:
+This will build packages containing both spry-sqlpage and spry-runbook for:
 - Ubuntu 22.04 (Jammy) - DEB
 - Debian 12 (Bookworm) - DEB
-- Rocky Linux 9 - RPM
-- Alma Linux 9 - RPM
 - Windows - ZIP (cross-compiled)
 
 ### Build Specific Platform
@@ -46,12 +44,6 @@ make build-jammy
 
 # Debian Bookworm
 make build-bookworm
-
-# Rocky Linux 9
-make build-rocky
-
-# Alma Linux 9
-make build-alma
 
 # Windows
 make build-windows
@@ -79,24 +71,6 @@ docker buildx build \
   .
 ```
 
-### RPM Packages
-
-```bash
-# Rocky Linux 9
-docker buildx build \
-  --target rockylinux9 \
-  --output type=local,dest=./output/rockylinux9 \
-  -f dalec-spry-sqlpage.yaml \
-  .
-
-# Alma Linux 9
-docker buildx build \
-  --target almalinux9 \
-  --output type=local,dest=./output/almalinux9 \
-  -f dalec-spry-sqlpage.yaml \
-  .
-```
-
 ### Windows Package
 
 ```bash
@@ -115,8 +89,6 @@ You can also use Docker Compose to build packages:
 # Build for specific platform
 docker-compose run build-jammy
 docker-compose run build-bookworm
-docker-compose run build-rocky
-docker-compose run build-alma
 docker-compose run build-windows
 ```
 
@@ -128,7 +100,7 @@ For development and testing, you can compile directly with Deno:
 # Install Deno (if not already installed)
 curl -fsSL https://deno.land/install.sh | sh
 
-# Compile spry-sqlpage
+# Compile both spry-sqlpage and spry-runbook
 make compile-local
 
 # Or manually:
@@ -137,24 +109,27 @@ deno compile \
   --import-map=import_map.json \
   --output=spry-sqlpage \
   spry_sqlpage.ts
+
+deno compile \
+  --allow-all \
+  --import-map=import_map.json \
+  --output=spry-runbook \
+  spry_runbook.ts
 ```
 
 ## Output Location
 
 Built packages will be in the `output/` directory:
 
-```
+```text
 output/
 ├── jammy/
 │   └── spry-sqlpage_0.1.0-1_amd64.deb
 ├── bookworm/
 │   └── spry-sqlpage_0.1.0-1_amd64.deb
-├── rockylinux9/
-│   └── spry-sqlpage-0.1.0-1.x86_64.rpm
-├── almalinux9/
-│   └── spry-sqlpage-0.1.0-1.x86_64.rpm
 └── windows/
-    └── spry-sqlpage-windows.zip
+    ├── spry-sqlpage-windows.zip
+    └── spry-runbook-windows.zip
 ```
 
 ## Troubleshooting
