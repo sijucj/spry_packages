@@ -128,8 +128,6 @@ The workflow will:
 3. Check that all package artifacts are attached:
    - `spry-sqlpage_jammy.deb`
    - `spry-sqlpage_bookworm.deb`
-   - `spry-sqlpage_rockylinux9.rpm`
-   - `spry-sqlpage_almalinux9.rpm`
    - `spry-sqlpage-windows.zip`
    - `spry-sqlpage-macos.tar.gz`
 
