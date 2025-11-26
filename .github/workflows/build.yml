@@ -48,6 +48,10 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Download import_map.json
+        run: |
+          curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+
       - name: Compile spry_sqlpage binary
         run: |
           deno compile \
@@ -108,6 +112,10 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Download import_map.json
+        run: |
+          curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+
       - name: Compile spry_sqlpage binary for Windows
         run: |
           # Compile directly for Windows x86_64 target
@@ -147,6 +155,10 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - name: Download import_map.json
+        run: |
+          curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
 
       - name: Compile spry_sqlpage for macOS
         run: |

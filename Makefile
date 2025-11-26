@@ -1,4 +1,4 @@
-.PHONY: help build-all build-deb build-windows clean test
+.PHONY: help build-all build-deb build-windows clean test download-import-map
 
 help: ## Show this help message
 	@echo 'Usage: make [target]'
@@ -26,7 +26,16 @@ build-bookworm: compile-local prepare-src ## Build DEB package for Debian Bookwo
 		-f dalec-spry-sqlpage.yaml \
 		.
 
-build-windows: ## Build Windows package (native Deno compilation)
+download-import-map: ## Download import_map.json from Spry repository
+	@if [ ! -f import_map.json ]; then \
+		echo "Downloading import_map.json..."; \
+		curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json; \
+		echo "✅ import_map.json downloaded"; \
+	else \
+		echo "✅ import_map.json already exists"; \
+	fi
+
+build-windows: download-import-map ## Build Windows package (native Deno compilation)
 	@echo "Compiling spry_sqlpage for Windows..."
 	deno compile \
 		--allow-all \
@@ -39,7 +48,7 @@ build-windows: ## Build Windows package (native Deno compilation)
 	zip output/spry-sqlpage-windows.zip spry-sqlpage.exe
 	@echo "✅ Windows package created: output/spry-sqlpage-windows.zip"
 
-compile-local: ## Compile spry_sqlpage locally with Deno
+compile-local: download-import-map ## Compile spry_sqlpage locally with Deno
 	@if [ ! -f spry-sqlpage ]; then \
 		echo "Compiling spry_sqlpage..."; \
 		deno compile \
