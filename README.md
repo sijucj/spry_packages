@@ -124,8 +124,6 @@ deno compile \
 
 - ✅ Ubuntu 22.04 (Jammy)
 - ✅ Debian 12 (Bookworm)
-- ✅ Rocky Linux 9
-- ✅ Alma Linux 9
 - ✅ macOS (Intel & Apple Silicon)
 - ✅ Windows (x64)
 
