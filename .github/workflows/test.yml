@@ -48,47 +48,6 @@ jobs:
           dpkg-deb --info "$DEB_FILE"
           dpkg-deb --contents "$DEB_FILE"
 
-  test-rpm:
-    name: Test RPM package
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - rockylinux9
-          - almalinux9
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build RPM package for ${{ matrix.target }}
-        run: |
-          docker buildx build \
-            --target ${{ matrix.target }} \
-            --output type=local,dest=./output \
-            -f dalec-spry-sqlpage.yaml \
-            .
-
-      - name: List built packages
-        run: |
-          ls -lh ./output/
-          find ./output -name "*.rpm"
-
-      - name: Test RPM package info
-        run: |
-          # Find the RPM file
-          RPM_FILE=$(find ./output -name "*.rpm" | head -n 1)
-          echo "Testing RPM file: $RPM_FILE"
-          
-          # Install rpm tools
-          sudo apt-get update && sudo apt-get install -y rpm
-          
-          # Check package info
-          rpm -qip "$RPM_FILE"
-          rpm -qlp "$RPM_FILE"
-
   test-local-compile:
     name: Test local Deno compilation
     runs-on: ${{ matrix.os }}
@@ -107,9 +66,10 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Download import_map.json
+      - name: Download import_map.json and deno.jsonc
         run: |
           curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+          curl -o deno.jsonc https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc
 
       - name: Compile spry_sqlpage
         run: |
@@ -119,23 +79,42 @@ jobs:
             --output=spry-sqlpage \
             spry_sqlpage.ts
 
-      - name: Verify binary exists
+      - name: Compile spry_runbook
+        run: |
+          deno compile \
+            --allow-all \
+            --import-map=import_map.json \
+            --output=spry-runbook \
+            spry_runbook.ts
+
+      - name: Verify binaries exist
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
             test -f spry-sqlpage.exe
-            ls -lh spry-sqlpage.exe
+            test -f spry-runbook.exe
+            ls -lh spry-sqlpage.exe spry-runbook.exe
           else
             test -f spry-sqlpage
-            ls -lh spry-sqlpage
+            test -f spry-runbook
+            ls -lh spry-sqlpage spry-runbook
           fi
 
-      - name: Test binary execution
+      - name: Test spry-sqlpage execution
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
             ./spry-sqlpage.exe --help || echo "Help command executed"
           else
             ./spry-sqlpage --help || echo "Help command executed"
+          fi
+
+      - name: Test spry-runbook execution
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            ./spry-runbook.exe --help || echo "Help command executed"
+          else
+            ./spry-runbook --help || echo "Help command executed"
           fi
 

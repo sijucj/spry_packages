@@ -55,17 +55,17 @@ make build-all
 
 # Build specific platform
 make build-jammy
-make build-rocky
+make build-bookworm
 make build-windows
 
-# Compile locally with Deno
+# Compile locally with Deno (both spry-sqlpage and spry-runbook)
 make compile-local
 ```
 
 #### Testing
 
 ```bash
-# Test the compiled binary
+# Test the compiled binaries
 make test
 
 # Install locally for testing

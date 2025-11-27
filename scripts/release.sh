@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Release script for spry-sqlpage packages
+# Release script for spry packages (spry-sqlpage and spry-runbook)
 # Usage: ./scripts/release.sh <version>
 
 VERSION=$1

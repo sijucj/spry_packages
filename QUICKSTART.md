@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get started with Spry SQLPage DALEC packages in minutes!
+Get started with Spry DALEC packages (spry-sqlpage and spry-runbook) in minutes!
 
 ## For Users
 
@@ -14,19 +14,6 @@ wget https://github.com/programmablemd/packages/releases/latest/download/spry-sq
 
 # Install
 sudo dpkg -i spry-sqlpage_jammy.deb
-
-# Verify installation
-spry-sqlpage --version
-```
-
-#### Rocky Linux/Alma Linux
-
-```bash
-# Download the latest release
-wget https://github.com/programmablemd/packages/releases/latest/download/spry-sqlpage_rockylinux9.rpm
-
-# Install
-sudo rpm -i spry-sqlpage_rockylinux9.rpm
 
 # Verify installation
 spry-sqlpage --version
@@ -88,11 +75,12 @@ make build-jammy
 # Install Deno
 curl -fsSL https://deno.land/install.sh | sh
 
-# Compile locally
+# Compile locally (both spry-sqlpage and spry-runbook)
 make compile-local
 
-# Test the binary
+# Test the binaries
 ./spry-sqlpage --help
+./spry-runbook --help
 ```
 
 ### Quick Build Commands
@@ -101,8 +89,8 @@ make compile-local
 # Build DEB for Ubuntu
 make build-jammy
 
-# Build RPM for Rocky Linux
-make build-rocky
+# Build DEB for Debian
+make build-bookworm
 
 # Build Windows package
 make build-windows
@@ -111,9 +99,11 @@ make build-windows
 make clean
 ```
 
-## Using Spry SQLPage
+## Using Spry Tools
 
-Once installed, you can use spry-sqlpage to create web applications:
+Once installed, you can use the Spry tools:
+
+### spry-sqlpage
 
 ```bash
 # Get help
@@ -121,16 +111,26 @@ spry-sqlpage --help
 
 # Run your Spry application
 spry-sqlpage serve
-
-# For more information, visit:
-# https://github.com/programmablemd/spry
 ```
+
+### spry-runbook
+
+```bash
+# Get help
+spry-runbook --help
+
+# Run a runbook
+spry-runbook run <runbook-file>
+```
+
+For more information, visit: https://github.com/programmablemd/spry
 
 ## Troubleshooting
 
 ### Package Installation Fails
 
 **Ubuntu/Debian:**
+
 ```bash
 # Install dependencies
 sudo apt-get update
@@ -138,15 +138,6 @@ sudo apt-get install -y ca-certificates
 
 # Try installing again
 sudo dpkg -i spry-sqlpage_jammy.deb
-```
-
-**Rocky/Alma Linux:**
-```bash
-# Install dependencies
-sudo yum install -y ca-certificates
-
-# Try installing again
-sudo rpm -i spry-sqlpage_rockylinux9.rpm
 ```
 
 ### Binary Not Found After Installation

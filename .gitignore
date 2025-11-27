@@ -8,11 +8,16 @@ output/
 # Compiled binaries
 spry-sqlpage
 spry-sqlpage.exe
+spry-runbook
+spry-runbook.exe
 spry-sqlpage-*
+spry-runbook-*
 
 # Deno
 .deno/
 deno.lock
+deno.jsonc
+import_map.json
 
 # OS files
 .DS_Store
@@ -31,4 +36,4 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
-
+node_modules/

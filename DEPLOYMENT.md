@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide explains how to deploy the Spry SQLPage DALEC project to GitHub and create your first release.
+This guide explains how to deploy the Spry DALEC project (spry-sqlpage and spry-runbook) to GitHub and create your first release.
 
 ## Prerequisites
 
@@ -67,11 +67,12 @@ find . -type f -name "*.md" -exec sed -i 's/YOUR_USERNAME/programmablemd/g' {} +
 ## Step 5: Test Locally (Optional but Recommended)
 
 ```bash
-# Test local compilation
+# Test local compilation (both spry-sqlpage and spry-runbook)
 make compile-local
 
-# Test the binary
+# Test the binaries
 ./spry-sqlpage --help
+./spry-runbook --help
 
 # If you have Docker with BuildKit, test a build
 make build-jammy
@@ -115,10 +116,9 @@ git push origin v0.1.0
 4. Verify all jobs complete successfully
 
 The workflow will:
-- Build DEB packages (Ubuntu, Debian)
-- Build RPM packages (Rocky Linux, Alma Linux)
-- Build Windows package (cross-compiled)
-- Build macOS package (native)
+- Build DEB packages (Ubuntu, Debian) for spry-sqlpage and spry-runbook
+- Build Windows packages (cross-compiled) for both tools
+- Build macOS packages (native) for both tools
 - Create a GitHub Release with all artifacts
 
 ## Step 8: Verify Release
@@ -126,27 +126,21 @@ The workflow will:
 1. Go to your repository's "Releases" page
 2. Verify the v0.1.0 release was created
 3. Check that all package artifacts are attached:
-   - `spry-sqlpage_jammy.deb`
-   - `spry-sqlpage_bookworm.deb`
-   - `spry-sqlpage-windows.zip`
-   - `spry-sqlpage-macos.tar.gz`
+   - `spry-sqlpage_jammy.deb`, `spry-sqlpage_bookworm.deb`
+   - `spry-sqlpage-windows.zip`, `spry-runbook-windows.zip`
+   - `spry-sqlpage-macos.tar.gz`, `spry-runbook-macos.tar.gz`
 
 ## Step 9: Test Installation
 
 Download and test a package for your platform:
 
 ### Ubuntu/Debian
+
 ```bash
 wget https://github.com/programmablemd/packages/releases/download/v0.1.0/spry-sqlpage_jammy.deb
 sudo dpkg -i spry-sqlpage_jammy.deb
 spry-sqlpage --help
-```
-
-### Rocky/Alma Linux
-```bash
-wget https://github.com/programmablemd/packages/releases/download/v0.1.0/spry-sqlpage_rockylinux9.rpm
-sudo rpm -i spry-sqlpage_rockylinux9.rpm
-spry-sqlpage --help
+spry-runbook --help
 ```
 
 ## Troubleshooting
