@@ -10,10 +10,10 @@ Get started with Spry DALEC packages (spry-sqlpage and spry-runbook) in minutes!
 
 ```bash
 # Download the latest release
-wget https://github.com/programmablemd/packages/releases/latest/download/spry-sqlpage_jammy.deb
+wget https://github.com/programmablemd/packages/releases/download/v0.1.1/spry-sqlpage_0.1.1-ubuntu22.04u1_amd64.deb
 
 # Install
-sudo dpkg -i spry-sqlpage_jammy.deb
+sudo dpkg -i spry-sqlpage_0.1.1-ubuntu22.04u1_amd64.deb
 
 # Verify installation
 spry-sqlpage --version
