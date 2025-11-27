@@ -66,9 +66,10 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Download import_map.json
+      - name: Download import_map.json and deno.jsonc
         run: |
           curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+          curl -o deno.jsonc https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc
 
       - name: Compile spry_sqlpage
         run: |

@@ -26,7 +26,7 @@ build-bookworm: compile-local prepare-src ## Build DEB package for Debian Bookwo
 		-f dalec-spry-sqlpage.yaml \
 		.
 
-download-import-map: ## Download import_map.json from Spry repository
+download-deps: ## Download import_map.json and deno.jsonc from Spry repository
 	@if [ ! -f import_map.json ]; then \
 		echo "Downloading import_map.json..."; \
 		curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json; \
@@ -34,8 +34,15 @@ download-import-map: ## Download import_map.json from Spry repository
 	else \
 		echo "✅ import_map.json already exists"; \
 	fi
+	@if [ ! -f deno.jsonc ]; then \
+		echo "Downloading deno.jsonc..."; \
+		curl -o deno.jsonc https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc; \
+		echo "✅ deno.jsonc downloaded"; \
+	else \
+		echo "✅ deno.jsonc already exists"; \
+	fi
 
-build-windows: download-import-map ## Build Windows packages (native Deno compilation)
+build-windows: download-deps ## Build Windows packages (native Deno compilation)
 	@echo "Compiling spry_sqlpage for Windows..."
 	deno compile \
 		--allow-all \
@@ -56,7 +63,7 @@ build-windows: download-import-map ## Build Windows packages (native Deno compil
 	zip output/spry-runbook-windows.zip spry-runbook.exe
 	@echo "✅ Windows packages created: output/spry-sqlpage-windows.zip, output/spry-runbook-windows.zip"
 
-compile-local: download-import-map ## Compile spry_sqlpage and spry_runbook locally with Deno
+compile-local: download-deps ## Compile spry_sqlpage and spry_runbook locally with Deno
 	@if [ ! -f spry-sqlpage ]; then \
 		echo "Compiling spry_sqlpage..."; \
 		deno compile \
@@ -82,11 +89,11 @@ compile-local: download-import-map ## Compile spry_sqlpage and spry_runbook loca
 
 prepare-src: compile-local ## Prepare src directory for DALEC
 	@echo "Preparing src directory for DALEC..."
-	@mkdir -p src
-	@cp spry-sqlpage src/spry-sqlpage
-	@cp spry-runbook src/spry-runbook
-	@chmod +x src/spry-sqlpage src/spry-runbook
-	@echo "✅ Binaries prepared in src/ directory"
+	@mkdir -p src/src
+	@cp spry-sqlpage src/src/spry-sqlpage
+	@cp spry-runbook src/src/spry-runbook
+	@chmod +x src/src/spry-sqlpage src/src/spry-runbook
+	@echo "✅ Binaries prepared in src/src/ directory"
 
 test: ## Test the compiled binaries
 	@echo "Testing spry-sqlpage binary..."

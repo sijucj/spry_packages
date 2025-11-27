@@ -28,12 +28,12 @@ build:
         find . -name "*spry-*" -type f
 
         # Binaries provided by workflow
-        # The source name "src" becomes a directory, so binaries are at src/src/
-        ls -la src/src/spry-sqlpage
-        ls -la src/src/spry-runbook
+        # The source name "src" becomes nested: src/src/src/
+        ls -la src/src/src/spry-sqlpage
+        ls -la src/src/src/spry-runbook
         # Use cp -p to preserve permissions and attributes
-        cp -p src/src/spry-sqlpage ./spry-sqlpage
-        cp -p src/src/spry-runbook ./spry-runbook
+        cp -p src/src/src/spry-sqlpage ./spry-sqlpage
+        cp -p src/src/src/spry-runbook ./spry-runbook
         chmod +x spry-sqlpage spry-runbook
 
         # Verify the binaries work before packaging
