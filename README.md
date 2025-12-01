@@ -14,7 +14,7 @@ Spry SQLPage is a declarative web application framework built on Deno. Spry Runb
 
 ```bash
 # Add the tap
-brew tap programmablemd/packages https://github.com/programmablemd/packages
+brew tap programmablemd/homebrew-packages
 
 # Install spry-sqlpage
 brew install spry-sqlpage
