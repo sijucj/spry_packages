@@ -8,7 +8,7 @@ This repository can be used as a Homebrew tap to install `spry-sqlpage` and `spr
 
 ```bash
 # Add the tap
-brew tap programmablemd/packages https://github.com/programmablemd/packages
+brew tap programmablemd/homebrew-packages
 
 # Install spry-sqlpage
 brew install spry-sqlpage
@@ -45,10 +45,18 @@ brew update
 brew upgrade spry-sqlpage spry-runbook
 ```
 
-## Uninstalling
+### Uninstalling
+
+To remove the tools:
 
 ```bash
-brew uninstall spry-sqlpage spry-runbook
+brew uninstall spry-runbook spry-sqlpage
+```
+
+To remove the tap:
+
+```bash
+brew untap programmablemd/homebrew-packages
 ```
 
 ## Supported Platforms
