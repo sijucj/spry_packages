@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A --node-modules-dir=auto
 // Use `deno run -A --watch` in the shebang if you're contributing / developing Spry itself.
 
-import { CLI } from "https://raw.githubusercontent.com/programmablemd/spry/refs/tags/v0.13.2/lib/runbook/cli.ts";
+import { CLI } from "https://raw.githubusercontent.com/programmablemd/spry/refs/tags/0.80.0/lib/axiom/text-ui/cli.ts";
 
-new CLI().run();
+await new CLI({ defaultFiles: ["Qualityfolio.md"] }).run();
