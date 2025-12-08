@@ -1,10 +1,10 @@
 # Spry DALEC Packages
 
-This repository contains DALEC-generated packages for `spry-sqlpage` and `spry-runbook`, providing native installation options across multiple platforms.
+This repository contains DALEC-generated packages for `spry`, providing native installation options across multiple platforms.
 
 ## About
 
-Spry SQLPage is a declarative web application framework built on Deno. Spry Runbook is a runbook execution tool. This repository uses [DALEC](https://github.com/project-dalec/dalec) to build secure, cross-platform packages for both tools.
+Spry is a declarative web application framework built on Deno. This repository uses [DALEC](https://github.com/project-dalec/dalec) to build secure, cross-platform packages.
 
 ## Installation
 
@@ -15,8 +15,7 @@ Spry SQLPage is a declarative web application framework built on Deno. Spry Runb
 ### Option 1: Install directly (without tapping)
 
 ```bash
-brew install programmablemd/packages/spry-sqlpage
-brew install programmablemd/packages/spry-runbook
+brew install programmablemd/packages/spry
 ```
 
 ### Option 2: Install from this tap
@@ -25,14 +24,8 @@ brew install programmablemd/packages/spry-runbook
 # Add the tap
 brew tap programmablemd/homebrew-packages
 
-# Install spry-runbook and spry-runbook
-brew install spry-sqlpage spry-runbook
-
-# Install spry-sqlpage
-brew install spry-sqlpage
-
-# Install spry-runbook
-brew install spry-runbook
+# Install spry
+brew install spry
 ```
 
 See [HOMEBREW.md](HOMEBREW.md) for more details.
@@ -55,41 +48,36 @@ If you prefer not to use Homebrew:
 
 ```bash
 # Download and extract
-wget https://github.com/programmablemd/packages/releases/download/v0.90.0/spry-sqlpage-macos.tar.gz
-tar -xzf spry-sqlpage-macos.tar.gz
-sudo mv spry-sqlpage-macos /usr/local/bin/spry-sqlpage
+wget https://github.com/programmablemd/packages/releases/download/v0.90.0/spry-macos.tar.gz
+tar -xzf spry-macos.tar.gz
+sudo mv spry-macos /usr/local/bin/spry
 ```
 
 #### Windows
 
 ```powershell
-# Download the Windows packages
-# https://github.com/programmablemd/packages/releases/download/v0.90.0/spry-sqlpage-windows.zip
-# https://github.com/programmablemd/packages/releases/download/v0.90.0/spry-runbook-windows.zip
+# Download the Windows package
+# https://github.com/programmablemd/packages/releases/download/v0.90.0/spry-windows.zip
 
-# Extract the zip files and run:
-.\spry-sqlpage.exe --help
-.\spry-runbook.exe --help
+# Extract the zip file and run:
+.\spry.exe --help
 ```
 
 ### 🔗 Direct Download
 
 Visit our [GitHub Releases](https://github.com/programmablemd/packages/releases) page to download pre-built binaries for your operating system:
 
-- **Windows**: `spry-sqlpage-windows.zip`, `spry-runbook-windows.zip`
-- **macOS**: `spry-sqlpage-macos.tar.gz`, `spry-runbook-macos.tar.gz`
+- **Windows**: `spry-windows.zip`
+- **macOS**: `spry-macos.tar.gz`
 - **Linux DEB**: `spry-sqlpage_jammy.deb`, `spry-sqlpage_bookworm.deb`
 
 ## Verification
 
-After installation, verify that `spry-sqlpage` and `spry-runbook` are working correctly:
+After installation, verify that `spry` is working correctly:
 
 ```bash
-spry-sqlpage --version
-spry-sqlpage --help
-
-spry-runbook --version
-spry-runbook --help
+spry --version
+spry --help
 ```
 
 ## Building from Source
@@ -123,19 +111,12 @@ docker buildx build \
 # Download import_map.json
 curl -o import_map.json https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
 
-# Compile spry-sqlpage
+# Compile spry
 deno compile \
   --allow-all \
   --import-map=import_map.json \
-  --output=spry-sqlpage \
-  spry_sqlpage.ts
-
-# Compile spry-runbook
-deno compile \
-  --allow-all \
-  --import-map=import_map.json \
-  --output=spry-runbook \
-  spry_runbook.ts
+  --output=spry \
+  spry.ts
 ```
 
 ## Supported Platforms
