@@ -66,7 +66,7 @@ echo ""
 # =======================================================
 echo "📦 Committing changes to git..."
 
-git add "$SPRY_FORMULA"
+git add .
 git commit -m "Bump Spry formula to ${VERSION}"
 git push
 git push origin "v$VERSION"
