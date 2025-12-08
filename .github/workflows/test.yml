@@ -30,7 +30,7 @@ jobs:
           docker buildx build \
             --target ${{ matrix.target }} \
             --output type=local,dest=./output \
-            -f dalec-spry-sqlpage.yaml \
+            -f dalec-spry.yaml \
             .
 
       - name: List built packages

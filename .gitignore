@@ -6,12 +6,9 @@ output/
 *.tar.gz
 
 # Compiled binaries
-spry-sqlpage
-spry-sqlpage.exe
-spry-runbook
-spry-runbook.exe
-spry-sqlpage-*
-spry-runbook-*
+spry
+spry.exe
+spry-*
 
 # Deno
 .deno/

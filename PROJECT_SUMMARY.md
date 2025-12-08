@@ -8,7 +8,7 @@ This project provides cross-platform packaging for **Spry** using **DALEC** (Dec
 
 ### Core Files
 
-1. **dalec-spry-sqlpage.yaml** - DALEC specification file
+1. **dalec-spry.yaml** - DALEC specification file
    - Defines package metadata, sources, build steps, and targets
    - Supports Ubuntu, Debian, and Windows
 
@@ -170,7 +170,7 @@ The project has been tested with:
 packages/
 ├── .github/workflows/     # CI/CD workflows
 ├── scripts/               # Automation scripts
-├── dalec-spry-sqlpage.yaml # DALEC spec
+├── dalec-spry.yaml        # DALEC spec
 ├── spry.ts                # Spry TypeScript file
 ├── import_map.json        # Deno dependencies
 ├── Makefile               # Build automation

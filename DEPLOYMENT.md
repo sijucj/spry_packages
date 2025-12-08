@@ -96,7 +96,7 @@ git push origin v0.1.0
 ### Option B: Manual Release
 
 ```bash
-# Update version in dalec-spry-sqlpage.yaml if needed
+# Update version in dalec-spry.yaml if needed
 # Then commit and tag
 git add .
 git commit -m "Release v0.1.0"
@@ -126,7 +126,7 @@ The workflow will:
 1. Go to your repository's "Releases" page
 2. Verify the v0.1.0 release was created
 3. Check that all package artifacts are attached:
-   - `spry-sqlpage_jammy.deb`, `spry-sqlpage_bookworm.deb`
+   - `spry_jammy.deb`, `spry_bookworm.deb`
    - `spry-windows.zip`
    - `spry-macos.tar.gz`
 
@@ -137,8 +137,8 @@ Download and test a package for your platform:
 ### Ubuntu/Debian
 
 ```bash
-wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry-sqlpage_jammy.deb
-sudo dpkg -i spry-sqlpage_jammy.deb
+wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry_jammy.deb
+sudo dpkg -i spry_jammy.deb
 spry --help
 ```
 

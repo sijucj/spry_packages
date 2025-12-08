@@ -10,10 +10,10 @@ Get started with Spry DALEC packages in minutes!
 
 ```bash
 # Download the latest release
-wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry-sqlpage_0.100.7-ubuntu22.04u1_amd64.deb
+wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry_0.100.7-ubuntu22.04u1_amd64.deb
 
 # Install
-sudo dpkg -i spry-sqlpage_0.100.7-ubuntu22.04u1_amd64.deb
+sudo dpkg -i spry_0.100.7-ubuntu22.04u1_amd64.deb
 
 # Verify installation
 spry --version
@@ -125,7 +125,7 @@ sudo apt-get update
 sudo apt-get install -y ca-certificates
 
 # Try installing again
-sudo dpkg -i spry-sqlpage_jammy.deb
+sudo dpkg -i spry_jammy.deb
 ```
 
 ### Binary Not Found After Installation

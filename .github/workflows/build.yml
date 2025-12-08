@@ -39,7 +39,7 @@ jobs:
       - name: Get version from DALEC config
         id: get-version
         run: |
-          VERSION=$(grep '^version:' dalec-spry-sqlpage.yaml | awk '{print $2}')
+          VERSION=$(grep '^version:' dalec-spry.yaml | awk '{print $2}')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
 
@@ -83,7 +83,7 @@ jobs:
           docker buildx build \
             --target ${{ matrix.target }} \
             --output type=local,dest=./output/${{ matrix.target }} \
-            -f dalec-spry-sqlpage.yaml \
+            -f dalec-spry.yaml \
             .
 
       - name: List output files
@@ -95,7 +95,7 @@ jobs:
       - name: Upload DEB artifact
         uses: actions/upload-artifact@v4
         with:
-          name: spry-sqlpage-${{ matrix.target }}-deb
+          name: spry-${{ matrix.target }}-deb
           path: ./output/${{ matrix.target }}/*.deb
 
 
@@ -234,14 +234,14 @@ jobs:
 
             #### Ubuntu 22.04 (Jammy)
             ```bash
-            wget https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/spry-sqlpage_${{ needs.build-deb.outputs.version }}-ubuntu22.04u1_amd64.deb
-            sudo dpkg -i spry-sqlpage_${{ needs.build-deb.outputs.version }}-ubuntu22.04u1_amd64.deb
+            wget https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/spry_${{ needs.build-deb.outputs.version }}-ubuntu22.04u1_amd64.deb
+            sudo dpkg -i spry_${{ needs.build-deb.outputs.version }}-ubuntu22.04u1_amd64.deb
             ```
 
             #### Debian 12 (Bookworm)
             ```bash
-            wget https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/spry-sqlpage_${{ needs.build-deb.outputs.version }}-debian12u1_amd64.deb
-            sudo dpkg -i spry-sqlpage_${{ needs.build-deb.outputs.version }}-debian12u1_amd64.deb
+            wget https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/spry_${{ needs.build-deb.outputs.version }}-debian12u1_amd64.deb
+            sudo dpkg -i spry_${{ needs.build-deb.outputs.version }}-debian12u1_amd64.deb
             ```
 
             #### Windows

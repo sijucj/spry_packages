@@ -15,7 +15,7 @@ build-jammy: compile-local prepare-src ## Build DEB package for Ubuntu Jammy
 	docker buildx build \
 		--target jammy \
 		--output type=local,dest=./output/jammy \
-		-f dalec-spry-sqlpage.yaml \
+		-f dalec-spry.yaml \
 		.
 
 build-bookworm: compile-local prepare-src ## Build DEB package for Debian Bookworm
@@ -23,7 +23,7 @@ build-bookworm: compile-local prepare-src ## Build DEB package for Debian Bookwo
 	docker buildx build \
 		--target bookworm \
 		--output type=local,dest=./output/bookworm \
-		-f dalec-spry-sqlpage.yaml \
+		-f dalec-spry.yaml \
 		.
 
 download-deps: ## Download import_map.json and deno.jsonc from Spry repository

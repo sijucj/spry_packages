@@ -61,14 +61,14 @@ If you prefer not to use Make, you can run Docker commands directly:
 docker buildx build \
   --target jammy \
   --output type=local,dest=./output/jammy \
-  -f dalec-spry-sqlpage.yaml \
+  -f dalec-spry.yaml \
   .
 
 # Debian Bookworm
 docker buildx build \
   --target bookworm \
   --output type=local,dest=./output/bookworm \
-  -f dalec-spry-sqlpage.yaml \
+  -f dalec-spry.yaml \
   .
 ```
 
@@ -78,7 +78,7 @@ docker buildx build \
 docker buildx build \
   --target windowscross \
   --output type=local,dest=./output/windows \
-  -f dalec-spry-sqlpage.yaml \
+  -f dalec-spry.yaml \
   .
 ```
 
@@ -119,9 +119,9 @@ Built packages will be in the `output/` directory:
 ```text
 output/
 ├── jammy/
-│   └── spry-sqlpage_0.1.0-1_amd64.deb
+│   └── spry_0.1.0-1_amd64.deb
 ├── bookworm/
-│   └── spry-sqlpage_0.1.0-1_amd64.deb
+│   └── spry_0.1.0-1_amd64.deb
 └── windows/
     └── spry-windows.zip
 ```

@@ -16,7 +16,7 @@ packages/
 │       └── test.yml           # Testing workflow
 ├── scripts/
 │   └── release.sh             # Release automation script
-├── dalec-spry-sqlpage.yaml    # DALEC specification file
+├── dalec-spry.yaml            # DALEC specification file
 ├── spry.ts                    # Spry TypeScript file
 ├── import_map.json            # Deno import map
 ├── Makefile                   # Build automation
@@ -32,7 +32,7 @@ packages/
 
 ### 1. DALEC Specification
 
-The `dalec-spry-sqlpage.yaml` file defines:
+The `dalec-spry.yaml` file defines:
 
 - **Package metadata**: name, version, description, license
 - **Sources**:
@@ -126,7 +126,7 @@ graph TD
 2. **Homebrew Formula**: macOS package manager support
 3. **Chocolatey**: Windows package manager support
 4. **ARM Support**: ARM64 builds for Linux and macOS
-5. **Container Images**: Docker images with spry-sqlpage pre-installed
+5. **Container Images**: Docker images with spry pre-installed
 
 ## References
 

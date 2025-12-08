@@ -34,12 +34,12 @@ See [HOMEBREW.md](HOMEBREW.md) for more details.
 
 ```bash
 # Ubuntu 22.04 (Jammy)
-wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry-sqlpage_0.100.7-ubuntu22.04u1_amd64.deb
-sudo dpkg -i spry-sqlpage_0.100.7-ubuntu22.04u1_amd64.deb
+wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry_0.100.7-ubuntu22.04u1_amd64.deb
+sudo dpkg -i spry_0.100.7-ubuntu22.04u1_amd64.deb
 
 # Debian 12 (Bookworm)
-wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry-sqlpage_0.100.7-debian12u1_amd64.deb
-sudo dpkg -i spry-sqlpage_0.100.7-debian12u1_amd64.deb
+wget https://github.com/programmablemd/packages/releases/download/v0.100.7/spry_0.100.7-debian12u1_amd64.deb
+sudo dpkg -i spry_0.100.7-debian12u1_amd64.deb
 ```
 
 #### macOS (Manual Installation)
@@ -69,7 +69,7 @@ Visit our [GitHub Releases](https://github.com/programmablemd/packages/releases)
 
 - **Windows**: `spry-windows.zip`
 - **macOS**: `spry-macos.tar.gz`
-- **Linux DEB**: `spry-sqlpage_jammy.deb`, `spry-sqlpage_bookworm.deb`
+- **Linux DEB**: `spry_jammy.deb`, `spry_bookworm.deb`
 
 ## Verification
 
@@ -94,14 +94,14 @@ spry --help
 docker buildx build \
   --target jammy \
   --output type=local,dest=./output \
-  -f dalec-spry-sqlpage.yaml \
+  -f dalec-spry.yaml \
   .
 
 # Build Windows package (cross-compilation)
 docker buildx build \
   --target windowscross \
   --output type=local,dest=./output \
-  -f dalec-spry-sqlpage.yaml \
+  -f dalec-spry.yaml \
   .
 ```
 

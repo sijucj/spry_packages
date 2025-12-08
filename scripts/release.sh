@@ -20,10 +20,10 @@ fi
 
 echo "Preparing release v$VERSION..."
 
-# Update version in dalec-spry-sqlpage.yaml
-echo "Updating version in dalec-spry-sqlpage.yaml..."
-sed -i.bak "s/^version: .*/version: $VERSION/" dalec-spry-sqlpage.yaml
-rm -f dalec-spry-sqlpage.yaml.bak
+# Update version in dalec-spry.yaml
+echo "Updating version in dalec-spry.yaml..."
+sed -i.bak "s/^version: .*/version: $VERSION/" dalec-spry.yaml
+rm -f dalec-spry.yaml.bak
 
 # Update version in README.md (replace any version pattern in download URLs)
 echo "Updating version in README.md..."
@@ -45,7 +45,7 @@ rm -f DEPLOYMENT.md.bak
 
 # Commit changes
 echo "Committing version changes..."
-git add dalec-spry-sqlpage.yaml README.md QUICKSTART.md DEPLOYMENT.md
+git add dalec-spry.yaml README.md QUICKSTART.md DEPLOYMENT.md
 git commit -m "Release v$VERSION" || echo "No changes to commit"
 
 # Create and push tag

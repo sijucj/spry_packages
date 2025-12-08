@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug or issue with spry-sqlpage packages
+about: Report a bug or issue with spry packages
 title: '[BUG] '
 labels: bug
 assignees: ''

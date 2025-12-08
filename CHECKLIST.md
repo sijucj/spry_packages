@@ -4,7 +4,7 @@ This checklist verifies that all components of the Spry packages DALEC project a
 
 ## ✅ Core Files
 
-- [x] `dalec-spry-sqlpage.yaml` - DALEC specification
+- [x] `dalec-spry.yaml` - DALEC specification
 - [x] `spry.ts` - Main TypeScript file for spry CLI
 - [x] `import_map.json` - Deno import map (downloaded from Spry repo)
 
@@ -89,7 +89,7 @@ This checklist verifies that all components of the Spry packages DALEC project a
 ### Future Enhancements
 
 - [ ] Add package signing (GPG)
-- [x] Create Homebrew formula (spry-sqlpage.rb)
+- [x] Create Homebrew formula (spry.rb)
 - [ ] Create Chocolatey package
 - [ ] Add ARM64 support
 - [ ] Create Docker images

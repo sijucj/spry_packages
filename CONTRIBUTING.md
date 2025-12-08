@@ -58,7 +58,7 @@ make build-jammy
 make build-bookworm
 make build-windows
 
-# Compile locally with Deno (both spry-sqlpage and spry-runbook)
+# Compile locally with Deno
 make compile-local
 ```
 

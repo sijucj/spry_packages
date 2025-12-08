@@ -12,7 +12,7 @@ services:
         docker buildx build
           --target jammy
           --output type=local,dest=./output/jammy
-          -f dalec-spry-sqlpage.yaml
+          -f dalec-spry.yaml
           .
       "
 
@@ -27,7 +27,7 @@ services:
         docker buildx build
           --target bookworm
           --output type=local,dest=./output/bookworm
-          -f dalec-spry-sqlpage.yaml
+          -f dalec-spry.yaml
           .
       "
 
@@ -42,7 +42,7 @@ services:
         docker buildx build
           --target windowscross
           --output type=local,dest=./output/windows
-          -f dalec-spry-sqlpage.yaml
+          -f dalec-spry.yaml
           .
       "
 
