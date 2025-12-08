@@ -68,7 +68,7 @@ echo "📦 Committing changes to git..."
 
 git add .
 git commit -m "Bump Spry formula to ${VERSION}"
-git push
+git push origin main
 git push origin "v$VERSION"
 
 echo "🎉 All done! Spry new version updated, committed, and pushed!"
