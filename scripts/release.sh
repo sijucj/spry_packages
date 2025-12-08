@@ -55,10 +55,20 @@ git tag -a "v$VERSION" -m "Release version $VERSION"
 echo ""
 echo "Release v$VERSION prepared!"
 echo ""
-echo "To complete the release, run:"
-echo "  git push origin main"
-git push origin "v$VERSION"
-echo "  git push origin v$VERSION"
-echo ""
-echo "This will trigger the GitHub Actions workflow to build and publish packages."
+# echo "To complete the release, run:"
+# echo "  git push origin main"
+# echo "  git push origin v$VERSION"
+# echo ""
+# echo "This will trigger the GitHub Actions workflow to build and publish packages."
 
+# =======================================================
+# GIT COMMIT & PUSH
+# =======================================================
+echo "📦 Committing changes to git..."
+
+git add "$SPRY_FORMULA"
+git commit -m "Bump Spry formula to ${VERSION}"
+git push
+git push origin "v$VERSION"
+
+echo "🎉 All done! Spry new version updated, committed, and pushed!"
