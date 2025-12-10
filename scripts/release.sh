@@ -25,6 +25,11 @@ echo "Updating version in dalec-spry.yaml..."
 sed -i.bak "s/^version: .*/version: $VERSION/" dalec-spry.yaml
 rm -f dalec-spry.yaml.bak
 
+# Update version in spry.ts (update the import tag version)
+echo "Updating version in spry.ts..."
+sed -i.bak -E "s|/refs/tags/v[0-9]+\.[0-9]+\.[0-9]+/|/refs/tags/v$VERSION/|g" spry.ts
+rm -f spry.ts.bak
+
 # Update version in README.md (replace any version pattern in download URLs)
 echo "Updating version in README.md..."
 sed -i.bak -E "s|/v[0-9]+\.[0-9]+\.[0-9]+/|/v$VERSION/|g" README.md
@@ -45,8 +50,9 @@ rm -f DEPLOYMENT.md.bak
 
 # Commit changes
 echo "Committing version changes..."
-git add dalec-spry.yaml README.md QUICKSTART.md DEPLOYMENT.md
+git add dalec-spry.yaml spry.ts README.md QUICKSTART.md DEPLOYMENT.md
 git commit -m "Release v$VERSION" || echo "No changes to commit"
+git push origin main
 
 # Create and push tag
 echo "Creating tag v$VERSION..."
@@ -66,9 +72,8 @@ echo ""
 # =======================================================
 echo "📦 Committing changes to git..."
 
-git add .
+# git add .
 git commit -m "Bump Spry formula to ${VERSION}"
-git push origin main
 git push origin "v$VERSION"
 
 echo "🎉 All done! Spry new version updated, committed, and pushed!"
