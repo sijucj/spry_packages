@@ -46,7 +46,6 @@ build-windows: download-deps ## Build Windows package (native Deno compilation)
 	@echo "Compiling spry for Windows..."
 	deno compile \
 		--allow-all \
-		--import-map=import_map.json \
 		--target x86_64-pc-windows-msvc \
 		--output=spry.exe \
 		spry.ts
@@ -60,7 +59,6 @@ compile-local: download-deps ## Compile spry locally with Deno
 		echo "Compiling spry..."; \
 		deno compile \
 			--allow-all \
-			--import-map=import_map.json \
 			--output=spry \
 			spry.ts; \
 		echo "✅ Done! Binary created: ./spry"; \
