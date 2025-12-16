@@ -90,10 +90,18 @@ install: ## Install spry locally (requires sudo)
 	@echo "Installing spry to /usr/local/bin..."
 	sudo cp spry /usr/local/bin/spry
 	sudo chmod +x /usr/local/bin/spry
+	@echo "Installing man page..."
+	sudo mkdir -p /usr/local/share/man/man1
+	sudo cp man/spry.1 /usr/local/share/man/man1/spry.1
+	@echo "Updating man database..."
+	sudo mandb
 	@echo "Installation complete. Run 'spry --help' to verify."
 
 uninstall: ## Uninstall spry from system
 	@echo "Uninstalling spry..."
 	sudo rm -f /usr/local/bin/spry
+	sudo rm -f /usr/local/share/man/man1/spry.1
+	@echo "Updating man database..."
+	sudo mandb
 	@echo "Uninstall complete."
 
