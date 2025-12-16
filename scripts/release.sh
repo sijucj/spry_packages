@@ -48,9 +48,16 @@ sed -i.bak -E "s|/v[0-9]+\.[0-9]+\.[0-9]+/|/v$VERSION/|g" DEPLOYMENT.md
 sed -i.bak -E "s|_[0-9]+\.[0-9]+\.[0-9]+-|_${VERSION}-|g" DEPLOYMENT.md
 rm -f DEPLOYMENT.md.bak
 
+# Update version and date in man/spry.1 header
+echo "Updating version and date in man/spry.1..."
+CURRENT_DATE=$(date +"%B %Y")
+# Update header line: .TH SPRY 1 "Date" "Version" "Manual Name"
+sed -i.bak -E "s/^(\.TH SPRY 1 \")[^\"]+(\" \")[^\"]+(\".*)$/\1$CURRENT_DATE\2$VERSION\3/" man/spry.1
+rm -f man/spry.1.bak
+
 # Commit changes
 echo "Committing version changes..."
-git add dalec-spry.yaml spry.ts README.md QUICKSTART.md DEPLOYMENT.md
+git add dalec-spry.yaml spry.ts README.md QUICKSTART.md DEPLOYMENT.md man/spry.1
 git commit -m "Release v$VERSION" || echo "No changes to commit"
 git push origin main
 
