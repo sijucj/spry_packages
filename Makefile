@@ -48,6 +48,7 @@ build-windows: download-deps spry.ts ## Build Windows package (native Deno compi
 		sed 's/__BAKED_GH_TOKEN__/'$${GH_TOKEN}'/g' spry.ts > spry.build.ts; \
 		deno compile \
 			--allow-all \
+			--include web-ui \
 			--target x86_64-pc-windows-msvc \
 			--output=spry.exe \
 			spry.build.ts; \
@@ -64,6 +65,7 @@ compile-local: download-deps spry.ts ## Compile spry locally with Deno
 		sed 's/__BAKED_GH_TOKEN__/'$${GH_TOKEN}'/g' spry.ts > spry.build.ts; \
 		deno compile \
 			--allow-all \
+			--include web-ui \
 			--output=spry \
 			spry.build.ts; \
 		rm spry.build.ts; \

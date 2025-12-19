@@ -65,6 +65,7 @@ jobs:
         run: |
           deno compile \
             --allow-all \
+            --include web-ui \
             --output=spry \
             spry.ts
 
@@ -147,6 +148,7 @@ jobs:
         run: |
           deno compile \
             --allow-all \
+            --include web-ui \
             --target x86_64-pc-windows-msvc \
             --output=spry.exe \
             spry.ts
@@ -207,6 +209,7 @@ jobs:
         run: |
           deno compile \
             --allow-all \
+            --include web-ui \
             --output=spry-macos \
             spry.ts
 
