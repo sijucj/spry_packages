@@ -32,8 +32,8 @@ Follow these steps to create and publish a new release using the provided releas
 
 4. **Update Homebrew formulas**
 
-   After pushing the release, run the following command in the Homebrew packages repository to update the Spry formula:
+   After completing the release, run the following command in the Homebrew packages repository to update the Spry formula:
 
    ```bash
-   ./update-spry-formulas.sh v0.1.0
+   ./update-spry-formulas.sh 0.1.0
    ```
