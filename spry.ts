@@ -2,7 +2,7 @@
 
 // Monkey-patch fetch to support GH_TOKEN and serving web-ui from embedded assets
 const BAKE_GH_TOKEN = "__BAKED_GH_TOKEN__";
-const VERSION = "0.102.3";
+const VERSION = "0.111.0";
 const originalFetch = globalThis.fetch;
 globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => {
     const url = typeof input === "string" ? input : (input instanceof URL ? input.toString() : input.url);
@@ -38,7 +38,8 @@ globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => 
     return originalFetch(input, init);
 };
 
-import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/v0.102.3/bin/spry.ts";
+// import { CLI } from `https://raw.githubusercontent.com/sijucj/spry_private/v${VERSION}/bin/spry.ts`;
+import { CLI } from `https://raw.githubusercontent.com/programmablemd/spry/refs/tags/v${VERSION}/bin/spry.ts`;
 
 const cli = await CLI({ defaultFiles: ["Spryfile.md"] });
 cli.getVersion = () => VERSION;
