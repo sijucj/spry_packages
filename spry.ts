@@ -27,7 +27,7 @@ globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => 
 
     // Support GH_TOKEN for private asset downloads from Spry repository
     const ghToken = Deno.env.get("GH_TOKEN") || (BAKE_GH_TOKEN.startsWith("__") ? undefined : BAKE_GH_TOKEN);
-    if (ghToken && (url.includes("raw.githubusercontent.com/sijucj/spry_private"))) {
+    if (ghToken && (url.includes("raw.githubusercontent.com/programmablemd/spry"))) {
         const headers = new Headers(init?.headers);
         if (!headers.has("Authorization")) {
             headers.set("Authorization", `Bearer ${ghToken}`);
