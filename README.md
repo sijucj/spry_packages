@@ -28,7 +28,7 @@ brew tap programmablemd/homebrew-packages
 brew install spry
 ```
 
-See [HOMEBREW.md](HOMEBREW.md) for more details.
+For additional Homebrew installation options, including installing specific versions and upgrading, please refer to [HOMEBREW.md](HOMEBREW.md).
 
 #### Ubuntu/Debian (.deb packages)
 
