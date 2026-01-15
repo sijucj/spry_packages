@@ -14,7 +14,7 @@ on:
 jobs:
   update-formulas:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ !github.event.workflow_run || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout Homebrew Repository
         uses: actions/checkout@v4
@@ -25,6 +25,10 @@ jobs:
 
       - name: Run Update Script
         run: |
+          # Configure Git Identity
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
           # Determine version based on trigger event
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             VERSION="${{ github.event.inputs.version }}"

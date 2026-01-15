@@ -66,9 +66,9 @@ jobs:
 
       - name: Publish JSR packages
         run: |
-          for pkg in universal extend reflect spawn tap; do
-            echo "Publishing $pkg"
-            cd jsr_package/$pkg
-            npx jsr publish --allow-dirty --allow-slow-types
-            cd ../..
-          done
+          # for pkg in universal extend reflect spawn tap; do
+          #   echo "Publishing $pkg"
+          #   cd jsr_package/$pkg
+          #   npx jsr publish --allow-dirty --allow-slow-types
+          #   cd ../..
+          # done
