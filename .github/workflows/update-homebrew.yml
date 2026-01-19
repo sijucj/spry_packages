@@ -19,7 +19,7 @@ jobs:
       - name: Checkout Homebrew Repository
         uses: actions/checkout@v4
         with:
-          repository: sijucj/spry_homebrew-packages
+          repository: programmablemd/homebrew-packages
           token: ${{ secrets.GH_PAT }}
           fetch-depth: 0
 
