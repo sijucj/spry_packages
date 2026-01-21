@@ -1,6 +1,7 @@
-# @spry/tap
+# @sijucj/tap
 
-TAP (Test Anything Protocol) utilities for Spry, compatible with Deno and other environments.
+TAP (Test Anything Protocol) utilities for Spry, compatible with Deno and other
+environments.
 
 ## Modules
 

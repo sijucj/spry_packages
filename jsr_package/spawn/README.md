@@ -1,6 +1,7 @@
-# @spry/spawn
+# @sijucj/spawn
 
-Shell and process spawning utilities for Spry, compatible with Deno and other environments.
+Shell and process spawning utilities for Spry, compatible with Deno and other
+environments.
 
 ## Modules
 

@@ -1,5 +1,5 @@
 {
-  "name": "@spry/tap",
+  "name": "@sijucj/tap",
   "version": "1.6.0",
   "exports": "./mod.ts",
   "imports": {

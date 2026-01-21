@@ -1,4 +1,4 @@
-# @spry/reflect
+# @sijucj/reflect
 
 Reflection utilities for Spry, compatible with Deno and other environments.
 

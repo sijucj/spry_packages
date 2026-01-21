@@ -1,5 +1,5 @@
 {
-  "name": "@spry/reflect",
+  "name": "@sijucj/reflect",
   "version": "1.6.0",
   "exports": "./mod.ts",
   "imports": {

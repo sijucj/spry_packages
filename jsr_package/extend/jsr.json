@@ -1,5 +1,5 @@
 {
-  "name": "@spry/extend",
+  "name": "@sijucj/extend",
   "version": "1.6.0",
   "exports": "./mod.ts",
   "imports": {

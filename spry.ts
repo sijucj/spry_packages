@@ -38,8 +38,8 @@ globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => 
     return originalFetch(input, init);
 };
 
-// import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/v0.111.0/bin/spry.ts";
-import { CLI } from "https://raw.githubusercontent.com/programmablemd/spry/refs/tags/v1.7.4/bin/spry.ts";
+import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/v0.111.0/bin/spry.ts";
+// import { CLI } from "https://raw.githubusercontent.com/programmablemd/spry/refs/tags/v1.7.4/bin/spry.ts";
 
 const cli = await CLI({ defaultFiles: ["Spryfile.md"] });
 cli.getVersion = () => VERSION;

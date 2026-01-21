@@ -46,8 +46,8 @@ jobs:
 
           # The script is expected to be in the root of the checked out repo
           if [ -f "./update-spry-formulas.sh" ]; then
-            chmod +x update-spry-formulas.sh
-            ./update-spry-formulas.sh "$VERSION"
+            # chmod +x update-spry-formulas.sh
+            # ./update-spry-formulas.sh "$VERSION"
           else
             echo "Error: update-spry-formulas.sh not found in the repository root."
             exit 1
