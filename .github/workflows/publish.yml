@@ -16,7 +16,7 @@ jobs:
       - name: Checkout spry repo
         uses: actions/checkout@v5
         with:
-          repository: sijucj/spry_private
+          repository: programmablemd/spry
           token: ${{ secrets.GH_PAT }}
           path: spry
 
@@ -28,6 +28,7 @@ jobs:
 
           # Copy to jsr_package/universal (both as subfolders to preserve import paths)
           rsync -a $EXCLUDE spry/lib/universal/ jsr_package/universal/
+          rsync -a $EXCLUDE spry/lib/spawn/ jsr_package/universal/spawn/
 
           # Copy to jsr_package/extend (from lib/extend)
           rsync -a $EXCLUDE spry/lib/extend/ jsr_package/extend/
@@ -37,74 +38,37 @@ jobs:
 
           # Copy to jsr_package/spawn (from lib/spawn, includes sql-shell subfolder, and universal as subfolder)
           rsync -a $EXCLUDE2 spry/lib/spawn/ jsr_package/spawn/
+          rsync -a $EXCLUDE spry/lib/universal/ jsr_package/spawn/universal/
 
           # Copy to jsr_package/tap (from lib/tap)
           rsync -a $EXCLUDE spry/lib/tap/ jsr_package/tap/
 
-      - name: Update jsr.json and fix imports
+      - name: Fix imports for JSR structure
+        run: |
+          # Fix universal package imports: spawn imported into universal/spawn needs to refer to parent universal files
+          # ../universal/event-bus.ts -> ../event-bus.ts
+          find jsr_package/universal/spawn -name "*.ts" -exec sed -i 's|\.\./universal/|\.\./|g' {} +
+
+          # Fix spawn package imports: universal imported into spawn/universal
+          # ../universal/event-bus.ts -> ./universal/event-bus.ts
+          find jsr_package/spawn -maxdepth 1 -name "*.ts" -exec sed -i 's|\.\./universal/|\./universal/|g' {} +
+
+      - name: Update jsr.json version from git tag
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}
-          PKGS="universal extend reflect spawn tap"
-          
-          # 1. Create a root deno.json to define a workspace. 
-          # This is critical for JSR to resolve circular dependencies between peer packages locally.
-          echo "{\"workspace\": [" > deno.json
-          FIRST=true
-          for pkg in $PKGS; do
-            if [ "$FIRST" = true ]; then FIRST=false; else echo "," >> deno.json; fi
-            echo "  \"./jsr_package/$pkg\"" >> deno.json
-          done
-          echo "]}" >> deno.json
-
-          for pkg in $PKGS; do
-            echo "Processing $pkg..."
+          for pkg in universal extend reflect spawn tap; do
+            echo "Updating version for $pkg to $VERSION"
             cd jsr_package/$pkg
-            
-            # 2. Update version
             jq --arg version "$VERSION" '.version = $version' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
-            
-            # 3. Update exports to allow deep imports (JSR forbids globs in keys, so explicit list is needed)
-            # Find all .ts files, excluding tests and mod.ts
-            find . -name "*.ts" -not -name "*_test.ts" -not -name "mod.ts" -printf "%P\n" | while read -r f; do
-              echo "  \"./$f\": \"./$f\"," >> exports_list.tmp
-            done
-            if [ -f exports_list.tmp ]; then
-              sed -i '$ s/,$//' exports_list.tmp
-              echo "{" > exports.json
-              cat exports_list.tmp >> exports.json
-              echo "}" >> exports.json
-              jq --argjson list "$(cat exports.json)" '.exports = ({"." : "./mod.ts"} + $list)' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
-              rm exports_list.tmp exports.json
-            else
-              jq '.exports = {"." : "./mod.ts"}' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
-            fi
-            
-            # 4. Add peer packages to imports map
-            for other in $PKGS; do
-              if [ "$other" != "$pkg" ]; then
-                # Map to JSR dependency (workspace will resolve this locally during publish)
-                BASE_VERSION=$(echo $VERSION | cut -d. -f1,2)
-                jq --arg name "@sijucj/$other" --arg target "jsr:@sijucj/$other@^$BASE_VERSION" '.imports[$name] = $target' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
-              fi
-            done
-            
-            # 5. Fix code imports:
-            # Replace relative paths with package paths
-            for other in $PKGS; do
-              if [ "$other" == "$pkg" ]; then
-                REPLACEMENT="./"
-              else
-                REPLACEMENT="@sijucj/$other/"
-              fi
-              find . -name "*.ts" -type f -exec sed -i "s|\"\.\./$other/|\"$REPLACEMENT|g" {} +
-              find . -name "*.ts" -type f -exec sed -i "s|'\.\./$other/|'$REPLACEMENT|g" {} +
-            done
-            
             cd ../..
           done
 
       - name: Publish JSR packages
         run: |
-          # Publish from the workspace root to handle circular dependencies correctly
-          npx jsr publish --allow-dirty --allow-slow-types
+          for pkg in universal extend reflect spawn tap; do
+            echo "Publishing $pkg"
+            cd jsr_package/$pkg
+            npx jsr publish --allow-dirty --allow-slow-types
+            cd ../..
+          done
