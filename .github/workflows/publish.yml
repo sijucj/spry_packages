@@ -41,14 +41,44 @@ jobs:
           # Copy to jsr_package/tap (from lib/tap)
           rsync -a $EXCLUDE spry/lib/tap/ jsr_package/tap/
 
-      - name: Update jsr.json version from git tag
+      - name: Update jsr.json and fix imports
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}
-          for pkg in universal extend reflect spawn tap; do
-            echo "Updating version for $pkg to $VERSION"
+          PKGS="universal extend reflect spawn tap"
+          for pkg in $PKGS; do
+            echo "Processing $pkg..."
             cd jsr_package/$pkg
+            
+            # 1. Update version
             jq --arg version "$VERSION" '.version = $version' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+            
+            # 2. Update exports to allow deep imports from peers (needed for the relative-to-JSR mapping)
+            jq '.exports = { ".": "./mod.ts", "./*": "./*.ts" }' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+            
+            # 3. Add peer packages to imports map
+            for other in $PKGS; do
+              if [ "$other" != "$pkg" ]; then
+                # Use a compatible version range for the current release
+                BASE_VERSION=$(echo $VERSION | cut -d. -f1,2)
+                jq --arg name "@sijucj/$other" --arg target "jsr:@sijucj/$other@^$BASE_VERSION" '.imports[$name] = $target' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+              fi
+            done
+            
+            # 4. Fix code imports:
+            # Self-reference fix: replace "../pkg/" with "./"
+            # Peer-reference fix: replace "../other/" with "@sijucj/other/"
+            for other in $PKGS; do
+              if [ "$other" == "$pkg" ]; then
+                REPLACEMENT="./"
+              else
+                REPLACEMENT="@sijucj/$other/"
+              fi
+              # Replace both double and single quotes
+              find . -name "*.ts" -type f -exec sed -i "s|\"\.\./$other/|\"$REPLACEMENT|g" {} +
+              find . -name "*.ts" -type f -exec sed -i "s|'\.\./$other/|'$REPLACEMENT|g" {} +
+            done
+            
             cd ../..
           done
 
