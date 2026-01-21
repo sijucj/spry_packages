@@ -53,8 +53,32 @@ jobs:
             # 1. Update version
             jq --arg version "$VERSION" '.version = $version' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
             
-            # 2. Update exports to allow deep imports from peers (needed for the relative-to-JSR mapping)
-            jq '.exports = { ".": "./mod.ts", "./*": "./*.ts" }' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+            # 2. Update exports to allow deep imports (explicitly list files since JSR forbids globs in keys)
+            # Create a base exports map with mod.ts
+            EXPORT_MAP='{"." : "./mod.ts"}'
+            
+            # Find all .ts files, excluding tests and mod.ts
+            # Construct the exports map using jq
+            find . -name "*.ts" -not -name "*_test.ts" -not -name "mod.ts" -printf "%P\n" | while read -r f; do
+              # We need to preserve the EXPORT_MAP state across iterations, but subshells are tricky.
+              # Let's use a temporary file to build the JSON.
+              echo "  \"./$f\": \"./$f\"," >> exports_list.tmp
+            done
+            
+            # Construct final exports object
+            if [ -f exports_list.tmp ]; then
+              # Remove trailing comma from last line
+              sed -i '$ s/,$//' exports_list.tmp
+              echo "{" > exports.json
+              cat exports_list.tmp >> exports.json
+              echo "}" >> exports.json
+              # Merge with mod.ts export
+              jq --argjson list "$(cat exports.json)" '.exports = ({"." : "./mod.ts"} + $list)' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+              rm exports_list.tmp exports.json
+            else
+              # No extra files, just mod.ts
+              jq '.exports = {"." : "./mod.ts"}' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
+            fi
             
             # 3. Add peer packages to imports map
             for other in $PKGS; do
