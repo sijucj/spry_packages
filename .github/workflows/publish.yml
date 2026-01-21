@@ -46,59 +46,57 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION=${VERSION#v}
           PKGS="universal extend reflect spawn tap"
+          
+          # 1. Create a root deno.json to define a workspace. 
+          # This is critical for JSR to resolve circular dependencies between peer packages locally.
+          echo "{\"workspace\": [" > deno.json
+          FIRST=true
+          for pkg in $PKGS; do
+            if [ "$FIRST" = true ]; then FIRST=false; else echo "," >> deno.json; fi
+            echo "  \"./jsr_package/$pkg\"" >> deno.json
+          done
+          echo "]}" >> deno.json
+
           for pkg in $PKGS; do
             echo "Processing $pkg..."
             cd jsr_package/$pkg
             
-            # 1. Update version
+            # 2. Update version
             jq --arg version "$VERSION" '.version = $version' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
             
-            # 2. Update exports to allow deep imports (explicitly list files since JSR forbids globs in keys)
-            # Create a base exports map with mod.ts
-            EXPORT_MAP='{"." : "./mod.ts"}'
-            
+            # 3. Update exports to allow deep imports (JSR forbids globs in keys, so explicit list is needed)
             # Find all .ts files, excluding tests and mod.ts
-            # Construct the exports map using jq
             find . -name "*.ts" -not -name "*_test.ts" -not -name "mod.ts" -printf "%P\n" | while read -r f; do
-              # We need to preserve the EXPORT_MAP state across iterations, but subshells are tricky.
-              # Let's use a temporary file to build the JSON.
               echo "  \"./$f\": \"./$f\"," >> exports_list.tmp
             done
-            
-            # Construct final exports object
             if [ -f exports_list.tmp ]; then
-              # Remove trailing comma from last line
               sed -i '$ s/,$//' exports_list.tmp
               echo "{" > exports.json
               cat exports_list.tmp >> exports.json
               echo "}" >> exports.json
-              # Merge with mod.ts export
               jq --argjson list "$(cat exports.json)" '.exports = ({"." : "./mod.ts"} + $list)' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
               rm exports_list.tmp exports.json
             else
-              # No extra files, just mod.ts
               jq '.exports = {"." : "./mod.ts"}' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
             fi
             
-            # 3. Add peer packages to imports map
+            # 4. Add peer packages to imports map
             for other in $PKGS; do
               if [ "$other" != "$pkg" ]; then
-                # Use a compatible version range for the current release
+                # Map to JSR dependency (workspace will resolve this locally during publish)
                 BASE_VERSION=$(echo $VERSION | cut -d. -f1,2)
                 jq --arg name "@sijucj/$other" --arg target "jsr:@sijucj/$other@^$BASE_VERSION" '.imports[$name] = $target' jsr.json > jsr.json.tmp && mv jsr.json.tmp jsr.json
               fi
             done
             
-            # 4. Fix code imports:
-            # Self-reference fix: replace "../pkg/" with "./"
-            # Peer-reference fix: replace "../other/" with "@sijucj/other/"
+            # 5. Fix code imports:
+            # Replace relative paths with package paths
             for other in $PKGS; do
               if [ "$other" == "$pkg" ]; then
                 REPLACEMENT="./"
               else
                 REPLACEMENT="@sijucj/$other/"
               fi
-              # Replace both double and single quotes
               find . -name "*.ts" -type f -exec sed -i "s|\"\.\./$other/|\"$REPLACEMENT|g" {} +
               find . -name "*.ts" -type f -exec sed -i "s|'\.\./$other/|'$REPLACEMENT|g" {} +
             done
@@ -108,9 +106,5 @@ jobs:
 
       - name: Publish JSR packages
         run: |
-          for pkg in universal extend reflect spawn tap; do
-            echo "Publishing $pkg"
-            cd jsr_package/$pkg
-            npx jsr publish --allow-dirty --allow-slow-types
-            cd ../..
-          done
+          # Publish from the workspace root to handle circular dependencies correctly
+          npx jsr publish --allow-dirty --allow-slow-types
