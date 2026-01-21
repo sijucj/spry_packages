@@ -36,7 +36,8 @@ spry --version
 
 #### Windows
 
-1. Download `spry-windows.zip` from [releases](https://github.com/programmablemd/packages/releases/latest)
+1. Download `spry-windows.zip` from
+   [releases](https://github.com/programmablemd/packages/releases/latest)
 2. Extract the ZIP file
 3. Add the extracted directory to your PATH
 4. Open a new terminal and run: `spry --version`
@@ -111,7 +112,7 @@ spry --help
 spry serve
 ```
 
-For more information, visit: <https://github.com/programmablemd/spry>
+For more information, visit: <https://github.com/sijucj/spry_private>
 
 ## Troubleshooting
 
@@ -163,6 +164,5 @@ make build-all
 ## Getting Help
 
 - [Open an issue](https://github.com/programmablemd/packages/issues)
-- [Spry Documentation](https://github.com/programmablemd/spry)
+- [Spry Documentation](https://github.com/sijucj/spry_private)
 - [DALEC Documentation](https://project-dalec.github.io/dalec/)
-

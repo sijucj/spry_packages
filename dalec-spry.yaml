@@ -8,7 +8,7 @@ packager: Spry Team
 vendor: Spry
 license: MIT
 description: Spry CLI - A declarative web application framework
-website: https://github.com/programmablemd/spry
+website: https://github.com/sijucj/spry_private
 
 sources:
   src:

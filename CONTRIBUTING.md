@@ -113,7 +113,7 @@ If you have questions, feel free to:
 
 - Open an issue for discussion
 - Check the [DALEC documentation](https://project-dalec.github.io/dalec/)
-- Review the [Spry project](https://github.com/programmablemd/spry)
+- Review the [Spry project](https://github.com/sijucj/spry_private)
 
 ## License
 

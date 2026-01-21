@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-This project provides cross-platform packaging for **Spry** using **DALEC** (Declarative Application Lifecycle Engine for Containers). Spry is a declarative web application framework.
+This project provides cross-platform packaging for **Spry** using **DALEC**
+(Declarative Application Lifecycle Engine for Containers). Spry is a declarative
+web application framework.
 
 ## What Has Been Created
 
@@ -86,13 +88,16 @@ This project provides cross-platform packaging for **Spry** using **DALEC** (Dec
 ## Supported Platforms
 
 ### Linux (DEB)
+
 - ✅ Ubuntu 22.04 (Jammy)
 - ✅ Debian 12 (Bookworm)
 
 ### Windows
+
 - ✅ Windows x64 (cross-compiled)
 
 ### macOS
+
 - ✅ macOS Intel & Apple Silicon (native compilation)
 
 ## How It Works
@@ -159,7 +164,7 @@ The project has been tested with:
 
 ## Resources
 
-- **Spry Project**: <https://github.com/programmablemd/spry>
+- **Spry Project**: <https://github.com/sijucj/spry_private>
 - **DALEC**: <https://github.com/project-dalec/dalec>
 - **Deno**: <https://deno.land/>
 - **Surveilr Packages** (reference): <https://github.com/surveilr/packages>
@@ -183,6 +188,7 @@ packages/
 ✅ **Complete** - Project is ready for use!
 
 All core functionality has been implemented:
+
 - DALEC specification
 - Build automation
 - CI/CD workflows
@@ -192,4 +198,3 @@ All core functionality has been implemented:
 ## License
 
 MIT License - See LICENSE file for details
-

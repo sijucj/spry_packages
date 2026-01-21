@@ -54,10 +54,10 @@ jobs:
         run: |
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o import_map.json \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/import_map.json
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o deno.jsonc \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/deno.jsonc
 
       - name: Compile spry binary
         env:
@@ -138,10 +138,10 @@ jobs:
         run: |
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o import_map.json \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/import_map.json
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o deno.jsonc \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/deno.jsonc
 
       - name: Compile spry binary for Windows
         env:
@@ -200,10 +200,10 @@ jobs:
         run: |
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o import_map.json \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/import_map.json
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/import_map.json
           curl -H "Authorization: Bearer $GH_TOKEN" \
             -o deno.jsonc \
-            https://raw.githubusercontent.com/programmablemd/spry/refs/heads/main/deno.jsonc
+            https://raw.githubusercontent.com/sijucj/spry_private/refs/heads/main/deno.jsonc
 
       - name: Compile spry for macOS
         env:
@@ -281,7 +281,7 @@ jobs:
           export PATH="$DENO_INSTALL/bin:$PATH"
 
           # Clone spry repo for SCF assets
-          git clone --depth 1 https://${GH_TOKEN}@github.com/programmablemd/spry.git temp_spry_scf
+          git clone --depth 1 https://${GH_TOKEN}@github.com/sijucj/spry_private.git temp_spry_scf
           cd temp_spry_scf/support/assurance/scf
           direnv allow .
           eval "$(direnv export bash)"

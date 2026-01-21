@@ -27,7 +27,7 @@ globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => 
 
     // Support GH_TOKEN for private asset downloads from Spry repository
     const ghToken = Deno.env.get("GH_TOKEN") || (BAKE_GH_TOKEN.startsWith("__") ? undefined : BAKE_GH_TOKEN);
-    if (ghToken && (url.includes("raw.githubusercontent.com/programmablemd/spry"))) {
+    if (ghToken && (url.includes("raw.githubusercontent.com/sijucj/spry_private"))) {
         const headers = new Headers(init?.headers);
         if (!headers.has("Authorization")) {
             headers.set("Authorization", `Bearer ${ghToken}`);
@@ -38,8 +38,8 @@ globalThis.fetch = async (input: string | Request | URL, init?: RequestInit) => 
     return originalFetch(input, init);
 };
 
-import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/v0.111.0/bin/spry.ts";
-// import { CLI } from "https://raw.githubusercontent.com/programmablemd/spry/refs/tags/v1.7.4/bin/spry.ts";
+// import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/v0.111.0/bin/spry.ts";
+import { CLI } from "https://raw.githubusercontent.com/sijucj/spry_private/refs/tags/v1.7.4/bin/spry.ts";
 
 const cli = await CLI({ defaultFiles: ["Spryfile.md"] });
 cli.getVersion = () => VERSION;

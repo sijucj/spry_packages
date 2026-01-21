@@ -16,7 +16,7 @@ jobs:
       - name: Checkout spry repo
         uses: actions/checkout@v5
         with:
-          repository: programmablemd/spry
+          repository: sijucj/spry_private
           token: ${{ secrets.GH_PAT }}
           path: spry
 

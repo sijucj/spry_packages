@@ -1,6 +1,7 @@
 # Building Spry Packages
 
-This document describes how to build spry packages for various operating systems using DALEC.
+This document describes how to build spry packages for various operating systems
+using DALEC.
 
 ## Prerequisites
 
@@ -167,7 +168,9 @@ make clean
 
 ## CI/CD
 
-The GitHub Actions workflow (`.github/workflows/build.yml`) automatically builds packages for all platforms on:
+The GitHub Actions workflow (`.github/workflows/build.yml`) automatically builds
+packages for all platforms on:
+
 - Push to main branch
 - New tags (v*)
 - Pull requests
@@ -175,6 +178,5 @@ The GitHub Actions workflow (`.github/workflows/build.yml`) automatically builds
 ## More Information
 
 - [DALEC Documentation](https://project-dalec.github.io/dalec/)
-- [Spry Project](https://github.com/programmablemd/spry)
+- [Spry Project](https://github.com/sijucj/spry_private)
 - [Deno Documentation](https://deno.land/)
-

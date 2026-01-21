@@ -1,10 +1,14 @@
 # Spry DALEC Architecture
 
-This document describes the architecture and design decisions for the Spry DALEC packaging project.
+This document describes the architecture and design decisions for the Spry DALEC
+packaging project.
 
 ## Overview
 
-This project uses [DALEC](https://github.com/project-dalec/dalec) to build cross-platform packages for the Spry CLI tool. DALEC is a Docker Buildkit frontend that translates declarative YAML specifications into build instructions for multiple Linux distributions and Windows.
+This project uses [DALEC](https://github.com/project-dalec/dalec) to build
+cross-platform packages for the Spry CLI tool. DALEC is a Docker Buildkit
+frontend that translates declarative YAML specifications into build instructions
+for multiple Linux distributions and Windows.
 
 ## Project Structure
 
@@ -48,13 +52,16 @@ The `dalec-spry.yaml` file defines:
 ### 2. Build Targets
 
 #### DEB Packages (Debian/Ubuntu)
+
 - **jammy**: Ubuntu 22.04 LTS
 - **bookworm**: Debian 12
 
 #### Windows
+
 - **Cross-compiled**: Windows binaries built from Linux runners
 
 #### macOS
+
 - Built separately using native Deno compilation on macOS runners
 
 ### 3. GitHub Actions Workflow
@@ -105,17 +112,20 @@ graph TD
 ## Dependencies
 
 ### Build-Time
+
 - Docker with BuildKit
 - Docker Buildx
 - Deno (for macOS builds)
 
 ### Runtime
+
 - ca-certificates (for HTTPS)
 - No other dependencies (self-contained binary)
 
 ## Security Considerations
 
-1. **Source Verification**: All sources are downloaded from official repositories
+1. **Source Verification**: All sources are downloaded from official
+   repositories
 2. **Checksums**: DALEC verifies source integrity
 3. **Minimal Attack Surface**: Single binary with no external dependencies
 4. **Supply Chain**: SBOM generation for transparency
@@ -131,7 +141,6 @@ graph TD
 ## References
 
 - [DALEC Documentation](https://project-dalec.github.io/dalec/)
-- [Spry Project](https://github.com/programmablemd/spry)
+- [Spry Project](https://github.com/sijucj/spry_private)
 - [Deno Compile](https://deno.land/manual/tools/compiler)
 - [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/)
-

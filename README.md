@@ -1,10 +1,13 @@
 # Spry DALEC Packages
 
-This repository contains DALEC-generated packages for `spry`, providing native installation options across multiple platforms.
+This repository contains DALEC-generated packages for `spry`, providing native
+installation options across multiple platforms.
 
 ## About
 
-Spry is a declarative web application framework built on Deno. This repository uses [DALEC](https://github.com/project-dalec/dalec) to build secure, cross-platform packages.
+Spry is a declarative web application framework built on Deno. This repository
+uses [DALEC](https://github.com/project-dalec/dalec) to build secure,
+cross-platform packages.
 
 ## Installation
 
@@ -28,7 +31,8 @@ brew tap programmablemd/homebrew-packages
 brew install spry
 ```
 
-For additional Homebrew installation options, including installing specific versions and upgrading, please refer to [HOMEBREW.md](HOMEBREW.md).
+For additional Homebrew installation options, including installing specific
+versions and upgrading, please refer to [HOMEBREW.md](HOMEBREW.md).
 
 #### Ubuntu/Debian (.deb packages)
 
@@ -65,7 +69,8 @@ sudo mv spry-macos /usr/local/bin/spry
 
 ### 🔗 Direct Download
 
-Visit our [GitHub Releases](https://github.com/programmablemd/packages/releases) page to download pre-built binaries for your operating system:
+Visit our [GitHub Releases](https://github.com/programmablemd/packages/releases)
+page to download pre-built binaries for your operating system:
 
 - **Windows**: `spry-windows.zip`
 - **macOS**: `spry-macos.tar.gz`
@@ -89,22 +94,24 @@ spry --help
 
 ## Release Information
 
-This repository is powered by [DALEC](https://github.com/project-dalec/dalec) for automated package generation and distribution. Each release includes:
+This repository is powered by [DALEC](https://github.com/project-dalec/dalec)
+for automated package generation and distribution. Each release includes:
 
 - **Ubuntu packages** (.deb for jammy)
 - **Debian packages** (.deb for bookworm)
 - **Windows binaries** (.zip)
 - **macOS binaries** (.tar.gz)
 
-For the latest release notes, visit [GitHub Releases](https://github.com/programmablemd/packages/releases).
+For the latest release notes, visit
+[GitHub Releases](https://github.com/programmablemd/packages/releases).
 
 ## License
 
-This packaging repository is licensed under MIT. The Spry project has its own license.
+This packaging repository is licensed under MIT. The Spry project has its own
+license.
 
 ## Links
 
-- [Spry Project](https://github.com/programmablemd/spry)
+- [Spry Project](https://github.com/sijucj/spry_private)
 - [DALEC Documentation](https://project-dalec.github.io/dalec/)
 - [Deno](https://deno.land/)
-
